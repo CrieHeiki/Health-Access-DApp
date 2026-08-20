@@ -23,23 +23,24 @@ graph TD
 
 ## Cấu trúc thư mục (Folder Structure)
 
-Dựa trên mã nguồn, dự án được chia thành các phân hệ chính:
+Cấu trúc dự án được chia thành 2 phần chính:
 
 ```text
 CT492/
-├── backend/            # Dịch vụ API Backend (Node.js/Express)
-│   ├── uploads/        # Thư mục lưu trữ tạm thời
-│   ├── .env            # Cấu hình biến môi trường
-│   └── server.js       # Entry point của Backend
-├── medical-contract/   # Mã nguồn Smart Contract
-│   ├── contracts/      # Chứa file MedicalRecordAccess.sol
-│   └── migrations/     # Các script triển khai (deploy) contract
-└── src/                # Giao diện người dùng (ReactJS / Web3)
-    ├── abi/            # Chứa MedicalRecordAccess.json (ABI)
-    ├── components/     # Các UI components tái sử dụng
-    ├── config/         # Cấu hình kết nối contract
-    ├── pages/          # Các trang Dashboard cho Admin, Doctor, Patient
-    └── utils/          # Các hàm hỗ trợ xử lý blockchain & ipfs
+├── medical-access-app/     # Ứng dụng chính bao gồm Frontend và Backend
+│   ├── backend/            # Dịch vụ API Backend (Node.js/Express)
+│   │   ├── uploads/        # Thư mục lưu trữ tạm thời
+│   │   ├── .env            # Cấu hình biến môi trường
+│   │   └── server.js       # Entry point của Backend
+│   └── src/                # Giao diện người dùng (ReactJS / Web3)
+│       ├── abi/            # Chứa MedicalRecordAccess.json (ABI)
+│       ├── components/     # Các UI components tái sử dụng
+│       ├── config/         # Cấu hình kết nối contract
+│       ├── pages/          # Các trang Dashboard cho Admin, Doctor, Patient
+│       └── utils/          # Các hàm hỗ trợ xử lý blockchain & ipfs
+└── medical-contract/       # Hệ thống Smart Contract
+    ├── contracts/          # Chứa file MedicalRecordAccess.sol
+    └── migrations/         # Các script triển khai (deploy) contract
 ```
 
 ## Ngôn ngữ và Công cụ (Tech Stack)
@@ -58,24 +59,24 @@ npm install
 truffle compile
 truffle migrate --network development
 ```
-*Ghi chú: Sau khi deploy, hãy đảm bảo copy file `MedicalRecordAccess.json` từ `build/contracts/` sang thư mục `src/abi/` của Frontend để giao diện nhận diện được ABI mới nhất.*
+*Ghi chú: Sau khi deploy, hãy copy file `MedicalRecordAccess.json` từ `medical-contract/build/contracts/` sang thư mục `medical-access-app/src/abi/` để Frontend nhận diện được cấu trúc mới nhất.*
 
-**2. Khởi chạy Backend**
+**2. Khởi chạy Backend API**
 ```bash
-cd backend
+cd medical-access-app/backend
 npm install
-# Khởi chạy server API
+# Khởi chạy server API (cấu hình .env trước nếu cần thiết)
 npm start 
-# Hoặc node server.js
+# Hoặc: node server.js
 ```
 
-**3. Khởi chạy Frontend**
+**3. Khởi chạy Giao diện Frontend**
 ```bash
-cd src
+cd medical-access-app
 npm install
 npm start
 ```
-*Giao diện ứng dụng sẽ chạy tại địa chỉ `http://localhost:3000`. Đảm bảo bạn đã cài đặt ví MetaMask trên trình duyệt và kết nối đúng với mạng lưới cục bộ (ví dụ: Ganache ở port 7545).*
+*Giao diện ứng dụng sẽ khởi chạy tại `http://localhost:3000`. Đảm bảo bạn đã cài đặt ví MetaMask trên trình duyệt và kết nối đúng với mạng lưới cục bộ (ví dụ: Ganache).*
 
 ## Tuyên bố trách nhiệm (Disclaimer)
 > **Lưu ý:** Mã nguồn này được phát triển dưới dạng mô hình Proof of Concept (PoC) phục vụ mục đích nghiên cứu học thuật về An toàn thông tin và Blockchain. Hệ thống chưa được kiểm định bảo mật (Security Audit) ở cấp độ thương mại. Tuyệt đối không sử dụng để lưu trữ dữ liệu y tế nhạy cảm thực tế trên các mạng lưới Public Blockchain mà không có các biện pháp mã hóa bổ sung.
