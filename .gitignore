@@ -1,0 +1,23 @@
+# Do not commit installed third-party dependencies.
+**/node_modules/
+
+# Credentials and machine-specific configuration.
+**/.env
+**/.env.*
+!**/.env.example
+
+# Locally generated output and transient files.
+**/coverage/
+medical-access-app/build/
+**/uploads/
+**/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Historical Truffle build/contracts artifacts are intentionally retained:
+# do not add a global build/ ignore rule without reviewing frontend ABI usage.
